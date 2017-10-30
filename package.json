@@ -1,0 +1,21 @@
+{
+  "name": "aio-decoder",
+  "version": "1.0.0",
+  "description": "Self Contained Raspberry Pi Video Stream Decoder Web Interface",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "github.com/mckmatter/aio-decoder"
+  },
+  "keywords": [
+    "Raspberry",
+    "Pi",
+    "Video",
+    "Decoder"
+  ],
+  "author": "Dylan McKenna",
+  "license": "MIT"
+}

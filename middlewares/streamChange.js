@@ -8,7 +8,7 @@ stream that OMX is decoding
 var cp = require('child_process')
 //var { spawnSync } = require('child_process').spawnSync()
 
-module.exports.setStream = function(param) {
+module.exports.setStream = function(param, cb) {
 
 	var args1 = []
 	args1.push("omxplayer")
@@ -21,5 +21,7 @@ module.exports.setStream = function(param) {
 
 	cp.spawn("omxplayer", args)
 	console.log("omxplayer")
+
+	cb(null)
 
 }

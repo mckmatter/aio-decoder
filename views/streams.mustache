@@ -1,0 +1,22 @@
+ <div class="table-responsive">
+	<table class=table table-striped>
+		<thead>
+			<th>ID</th>
+			<th>Name</th>
+			<th>URI</th>
+			<th>Play</th>
+			<th>Note</th>
+		</thead>
+		<tbody class="streamRow"></tbody>
+
+		{{#streams}}
+		<tr id="{{id}}">
+			<td>{{id}}</td>
+			<td>{{title}}</td>
+			<td>{{url}}</td>
+			<td><input type="button" class="play btn btn-primary" id="{{id}}" value="Play"></td>
+			<td>{{Note}}</td>
+		</tr>
+		{{/streams}}
+	</table>
+</div>

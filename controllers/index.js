@@ -15,7 +15,7 @@ var router = express.Router()
 router.use('/streams', require('./streams'))
 
 //Login
-//router.use('/login', require('./login'))
+router.use('/login', require('./login'))
 
 //Export the routes to app.js
 module.exports = router;

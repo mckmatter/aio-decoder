@@ -5,24 +5,24 @@ mckmatter - 2017
 */
 
 var sqlite = require('sqlite3').verbose()
+var jwt = require('jsonwebtoken')
+var secret = "RMU1921"
+var bcrypt = require('bcrypt')
 
+//Get 1 Record from database
 var doGet = function(string, params, callback) {
-
 	var result;
-
 	let db = new sqlite.Database('./database/database.db', sqlite.OPEN_READ, function(err) {
 		if(err) {
 			console.log(err.message)
 		}
 	})
-
 	db.get(string, params, function(err, row) {
 		if(err) {
 			return console.error(err.message)
 		}
 		result = row
 	})
-
 	db.close(function(err) {
 		if(err) {
 			console.log(err.message)
@@ -37,30 +37,50 @@ module.exports.authenticate = function(body, cb) {
 	var username = body.user
 	var password = body.password
 
-	var sql = 'SELECT token ' +
+	var sql = 'SELECT hash ' +
 				'FROM User ' +
-				'WHERE username = ? ' +
-				'AND password = ?'
+				'WHERE username = ? '
 
-	doGet(sql, [username, password], function(err, result) {
-		console.log("User.authenticate token: " + result.token)
-		cb(err, result.token)
+	doGet(sql, [username], function(err, result) {
+
+		if(err) {
+			cb(500, null)
+		}
+		else {
+			console.log("HASH: " + result.hash)
+			bcrypt.compare(password, result.hash, function(err, res) {
+				if(res===true) {
+					jwt.sign({
+						exp: Math.floor(Date.now() / 1000) + (60 * 60),
+						user: username
+					}, secret, function(err, token) {
+						cb(null, token)
+					})	
+				}
+				else {
+					cb("Wrong password", null)
+				}
+			})
+		}
 	})
 }
 
 module.exports.checkToken = function(token, cb) {
-	var sql = 'SELECT username ' +
-				'FROM User ' +
-				'WHERE token = ?'
 
-	doGet(sql, token, function(err, result) {
+	jwt.verify(token, secret, function(err, decoded) {
 		if(err) {
-			cb(err, null)
+			console.log("Bad Token")
+			cb("Bad Token", null)
 		}
-		else{
-			cb(null, result)
+		else {
+			console.log(decoded)
+			cb(null, decoded)
 		}
-	})
+	})	
 }
+
+
+
+
 
 

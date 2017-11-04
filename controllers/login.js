@@ -25,10 +25,10 @@ router.post('/', function(req, res) {
   if(req.body.user){
   	User.authenticate(req.body, function(err, token) {
   		if(err){
+        console.log(err)
   			res.sendStatus(403)
   		}
   		else {
-        console.log('LOGIN RES: sendToken: ' + token)
   			res.send(token).status(200);
   		}
   	})

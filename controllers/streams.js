@@ -58,7 +58,7 @@ router.post('/', function(req, res) {
 
 //Route to change stream
 router.post('/:id', function(req, res) {
-
+	console.log("POST /streams/:id " + req.params.id)
 	if(!req.body.token){
 		res.render('login')
 	}

@@ -17,5 +17,9 @@
     "Decoder"
   ],
   "author": "Dylan McKenna",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "bcrypt": "^1.0.3",
+    "jsonwebtoken": "^8.1.0"
+  }
 }

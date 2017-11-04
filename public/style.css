@@ -8,6 +8,11 @@ body {
   text-align: center;
 }
 
+.feedback {
+  color: red;
+  text-align: center;
+}
+
 .form-signin {
   max-width: 330px;
   padding: 15px;

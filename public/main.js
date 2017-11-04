@@ -24,11 +24,25 @@ $(document).ready(function() {
 			'contentType': 'application/json',
 			'url': "/login",
 			'data': data,
+			statusCode: {
+				403: function() {
+					console.log("403");
+					$(".feedback").empty();
+					$(".feedback").append("<h4>Wrong Password</h4>");
+				},
+				200: function(data) {
+					console.log("POST /login RES TOKEN: " + data);
+					sessionStorage.token = data;
+					writeStreams();
+				}
+			}
+			/*
 			success: function(data) {
 				console.log("POST /login RES TOKEN: " + data);
 				sessionStorage.token = data;
 				writeStreams();
 			}
+			*/
 		})
 		
 	})
@@ -71,6 +85,7 @@ $(document).ready(function() {
 			'data': data,
 			success: function(res) {
 				//console.log(res);
+				$(".feedback").empty();
 				$(".content").empty();
 				$(".content").append(res);
 			}

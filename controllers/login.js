@@ -22,21 +22,17 @@ router.get('/', function(req, res) {
 router.post('/', function(req, res) {
   console.log('POST: /login')
   console.log(req.body)
-  if(req.body.user){
+
   	User.authenticate(req.body, function(err, token) {
   		if(err){
         console.log(err)
-  			res.sendStatus(403)
+  			res.sendStatus(err)
   		}
   		else {
   			res.send(token).status(200);
   		}
   	})
-  } 
-  else{
-    console.log("LOGIN: NO username")
-  	res.render('login');
-  }
+
 })
 
 

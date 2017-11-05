@@ -6,7 +6,7 @@ mckmatter - 2017
 
 var sqlite = require('sqlite3').verbose()
 var jwt = require('jsonwebtoken')
-var secret = "RMU1921"
+var secret = "Ehqh5ZVkMeDQY2bw"
 var bcrypt = require('bcrypt')
 
 //Get 1 Record from database
@@ -42,9 +42,12 @@ module.exports.authenticate = function(body, cb) {
 				'WHERE username = ? '
 
 	doGet(sql, [username], function(err, result) {
-
+		console.log(result)
 		if(err) {
 			cb(500, null)
+		}
+		else if(!result){
+			cb(401, null)
 		}
 		else {
 			console.log("HASH: " + result.hash)
@@ -58,7 +61,7 @@ module.exports.authenticate = function(body, cb) {
 					})	
 				}
 				else {
-					cb("Wrong password", null)
+					cb(401, null)
 				}
 			})
 		}
@@ -70,7 +73,7 @@ module.exports.checkToken = function(token, cb) {
 	jwt.verify(token, secret, function(err, decoded) {
 		if(err) {
 			console.log("Bad Token")
-			cb("Bad Token", null)
+			cb(403, null)
 		}
 		else {
 			console.log(decoded)

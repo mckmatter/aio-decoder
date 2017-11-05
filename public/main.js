@@ -25,10 +25,11 @@ $(document).ready(function() {
 			'url': "/login",
 			'data': data,
 			statusCode: {
-				403: function() {
-					console.log("403");
+				401: function() {
 					$(".feedback").empty();
-					$(".feedback").append("<h4>Wrong Password</h4>");
+					$(".feedback").append("<h4>Wrong Credentials</h4>");
+					$(".content").find("input#inputPassword").val('');
+					$(".content").find("input#inputUser").val('');
 				},
 				200: function(data) {
 					console.log("POST /login RES TOKEN: " + data);

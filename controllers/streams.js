@@ -17,8 +17,10 @@ var User = require('../models/User')
 
 //Require Middleware
 var StreamChange = require('../middlewares/streamChange.js')
+var config = require('../middlewares/config.js')
 
 var sc = function(id, cb) {
+	config.writeCurrentStream(id)
 	Streams.getUriById(id, function(err, result) {
 		StreamChange.setStream(result, function(err) {
 			if(err){

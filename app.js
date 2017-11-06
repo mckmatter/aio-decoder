@@ -9,6 +9,8 @@ mckmatter - 2017
 
 //Require Frameworks and expose Express
 
+var cp = require('child_process')
+
 var express = require('express')
 var mustache = require('mustache-express')
 var app = express()
@@ -33,5 +35,9 @@ app.use(require('./controllers'))
 var port = 3000
 app.listen(port, function() {
 	console.log('App listening at: ' + port)
+
+	var args = []
+	args.push('autoRun.js')
+	cp.spawn("node", args)
 })
 

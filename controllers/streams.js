@@ -19,7 +19,7 @@ var User = require('../models/User')
 var StreamChange = require('../middlewares/streamChange.js')
 
 var sc = function(id, cb) {
-	Streams.getUriById(req.params, function(err, result) {
+	Streams.getUriById(id, function(err, result) {
 		StreamChange.setStream(result, function(err) {
 			if(err){
 				cb(err, 500)
@@ -60,22 +60,25 @@ router.post('/', function(req, res) {
 router.post('/:id', function(req, res) {
 	console.log("POST /streams/:id " + req.params.id)
 	if(!req.body.token){
+		console.log("post :id no token")
 		res.render('login')
 	}
 	else {
+		console.log("post :id check token")
 		User.checkToken(req.body.token, function(err, result) {
 			if(err){
 				res.render('login')
 			}
 			else{
+				console.log("About to hit SC")
 				sc(req.params.id, function(err, status) {
 					if(err){
 						console.log(err)
-						res.sendStatus = status
+						res.status(status).end()
 					}
 					else{
-						console.log(err)
-						res.sendStatus = status
+						console.log("Status: " + status)
+						res.status(status).end()
 					}
 				})
 			}

@@ -10,6 +10,7 @@ var cp = require('child_process')
 
 module.exports.setStream = function(param, cb) {
 
+	console.log("streamChange: " + param)
 	var args1 = []
 	args1.push("omxplayer")
 	cp.spawnSync("pkill", args1)

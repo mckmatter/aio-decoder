@@ -60,10 +60,12 @@ $(document).ready(function() {
 			var reqUrl = "/streams/" + streamID;
 			//console.log("req url: " + reqUrl); 
 			
-			var data = JSON.stringify(sessionStorage.token);
+			var data = JSON.stringify({"token":sessionStorage.token});
+			console.log("play click token: " + data);
 
 			$.ajax({
 				'type': "POST",
+				'contentType': 'application/json',
 				'url': reqUrl,
 				'data': data,
 				success: function() {

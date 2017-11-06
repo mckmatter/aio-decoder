@@ -73,9 +73,9 @@ module.exports.getUriById = function(params, cb) {
 	var sql = 'SELECT url FROM Stream ' +
 				'WHERE id = ?'
 
-	doGet(sql, params.id, function(err, result) {
+	doGet(sql, params, function(err, result) {
 		console.log("result: " + result.url)
-		cb(null, result[0])
+		cb(null, result.url)
 	})
 }
 
